@@ -13,6 +13,7 @@ dependencies = []
 [project.optional-dependencies]
 train = ["torch>=2.3,<3"]
 hf = ["torch>=2.3,<3", "transformers>=4.46,<5", "peft>=0.14,<1"]
+preferences = ["torch>=2.3,<3", "transformers>=4.46,<5", "datasets>=3,<5"]
 
 [project.scripts]
 toolrecover = "toolrecover.cli:main"

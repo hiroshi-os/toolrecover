@@ -1,0 +1,111 @@
+{
+  "kind": "local_random_HF_models_synthetic_scripted_preferences",
+  "human_training_completed": false,
+  "AI_judge_run_completed": false,
+  "pretrained_GPU_run_completed": false,
+  "results": {
+    "dpo": {
+      "steps": 35,
+      "label_counts": {
+        "scripted": 12
+      },
+      "validation_before": {
+        "pairs": 1,
+        "loss": 0.6931471824645996,
+        "pair_accuracy": 0.0,
+        "ties": 1,
+        "mean_margin": 0.0,
+        "label_counts": {
+          "scripted": 1
+        },
+        "dpo_improvement_rate": 0.0,
+        "mean_policy_logp_margin": -0.08581066131591797,
+        "policy_ranking_ties": 0
+      },
+      "validation": {
+        "pairs": 1,
+        "loss": 0.023376325145363808,
+        "pair_accuracy": 1.0,
+        "ties": 0,
+        "mean_margin": 3.7443206310272217,
+        "label_counts": {
+          "scripted": 1
+        },
+        "dpo_improvement_rate": 1.0,
+        "mean_policy_logp_margin": 7.402830600738525,
+        "policy_ranking_ties": 0
+      },
+      "test": {
+        "pairs": 1,
+        "loss": 0.025614334270358086,
+        "pair_accuracy": 1.0,
+        "ties": 0,
+        "mean_margin": 3.651768684387207,
+        "label_counts": {
+          "scripted": 1
+        },
+        "dpo_improvement_rate": 1.0,
+        "mean_policy_logp_margin": 7.145860195159912,
+        "policy_ranking_ties": 0
+      },
+      "model_revision": null,
+      "tokenizer_revision": null,
+      "device": "cpu",
+      "dtype": "torch.float32",
+      "package_versions": {
+        "torch": "2.14.1+cpu",
+        "transformers": "4.57.6",
+        "tokenizers": "0.22.2"
+      },
+      "data_sha256": "a057f7af7dcc8657c8ad28bc89a53322a1b75d6a3b1c5de13612270d994bcbee",
+      "first_gradient_norm": 2.80306077003479
+    },
+    "reward": {
+      "steps": 35,
+      "label_counts": {
+        "scripted": 12
+      },
+      "validation_before": {
+        "pairs": 1,
+        "loss": 0.6925212144851685,
+        "pair_accuracy": 1.0,
+        "ties": 0,
+        "mean_margin": 0.0012523308396339417,
+        "label_counts": {
+          "scripted": 1
+        }
+      },
+      "validation": {
+        "pairs": 1,
+        "loss": 0.028620382770895958,
+        "pair_accuracy": 1.0,
+        "ties": 0,
+        "mean_margin": 3.5392918586730957,
+        "label_counts": {
+          "scripted": 1
+        }
+      },
+      "test": {
+        "pairs": 1,
+        "loss": 0.028629913926124573,
+        "pair_accuracy": 1.0,
+        "ties": 0,
+        "mean_margin": 3.538954019546509,
+        "label_counts": {
+          "scripted": 1
+        }
+      },
+      "model_revision": null,
+      "tokenizer_revision": null,
+      "device": "cpu",
+      "dtype": "torch.float32",
+      "package_versions": {
+        "torch": "2.14.1+cpu",
+        "transformers": "4.57.6",
+        "tokenizers": "0.22.2"
+      },
+      "data_sha256": "a057f7af7dcc8657c8ad28bc89a53322a1b75d6a3b1c5de13612270d994bcbee",
+      "first_gradient_norm": 0.165750652551651
+    }
+  }
+}

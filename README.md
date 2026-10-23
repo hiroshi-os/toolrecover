@@ -138,6 +138,91 @@ larger state/action spaces, held-out recovery compositions, unseen tool schemas,
 free-form argument validation, pretrained-model multi-seed runs and real sandboxed
 repositories. None of those results is claimed here.
 
+## Preference learning and reward modeling
+
+[Open the preference Colab notebook](https://colab.research.google.com/github/hiroshi-os/toolrecover/blob/main/notebooks/preferences_colab.ipynb).
+GPU execution is deferred. The notebook clones and installs the repo, streams a
+bounded public human preference subset, explicitly audits length filtering,
+trains DPO and a separate Bradley–Terry reward model, evaluates held-out pairs,
+optionally collects actual AI judgments and trains AI DPO, and downloads artifacts.
+Each phase runs in its own process to release GPU memory. Defaults use
+SmolLM2-135M-Instruct for training and Qwen2.5-0.5B-Instruct for optional judging.
+
+```sh
+python -m pip install -e '.[preferences]'
+python -m toolrecover.preferences import-hh --count 100 --out artifacts/hh.jsonl
+python -m toolrecover.preferences import-jsonl --data my-labels.jsonl --out artifacts/user.jsonl
+python -m toolrecover.preferences validate --data artifacts/user.jsonl
+python -m toolrecover.preferences train --data artifacts/user.jsonl --out artifacts/dpo --method dpo
+python -m toolrecover.preferences train --data artifacts/user.jsonl --out artifacts/reward --method reward
+python -m toolrecover.preferences eval --data artifacts/user.jsonl --checkpoint artifacts/reward
+python -m toolrecover.preferences judge --data artifacts/user.jsonl --out artifacts/ai.jsonl
+python -m toolrecover.preferences train --data artifacts/ai.jsonl --out artifacts/ai-dpo --method dpo
+```
+
+The public importer streams only the original HH train split, pins the resolved
+dataset commit, bounds scanning to 100× requested count, and records rejection
+counts. It creates a new prompt-grouped 80/10/10 split; this is not the published
+HH test. HH is general helpfulness/harmlessness data, not tool recovery data.
+Its [dataset card](https://huggingface.co/datasets/Anthropic/hh-rlhf) declares MIT;
+retain upstream attribution and notices. Importing labels does not create a new
+human labeling study. Review dataset and model licenses independently.
+
+Each JSONL object requires `id`, `prompt`, `chosen`, `rejected`, `split`
+(`train`, `validation`, `test`) and `provenance`. Provenance requires `label_type`
+(`human`, `ai`, `scripted`), `source`, `license`, and `method`; AI rows also
+require `judge_model`. Example (scripted, **not human**):
+
+```json
+{"id":"example-1","prompt":"A missing path caused failure. What next?","chosen":"Discover the target path.","rejected":"Delete the checks.","split":"train","provenance":{"label_type":"scripted","source":"my verifier experiment","license":"MIT","method":"verifiable simulator outcome comparison"}}
+```
+
+Provide disjoint prompts in all three splits before training. Validation rejects
+blank/malformed rows, duplicate IDs/pairs, reversed duplicates, normalized
+identical completions and normalized identical prompts across splits. These
+checks do not detect semantic paraphrases or every related conversation.
+Overlength examples fail explicitly rather than silently truncating preferred
+evidence; the notebook filters and audits them before final split assignment.
+Prompt and completion are tokenized separately and concatenated, with EOS as a
+completion token. Batch padding and prompt tokens do not contribute to DPO loss.
+
+DPO implements the real causal-LM objective
+`-logsigmoid(beta * ((logπ(chosen)-logπ(rejected)) - (logπref(chosen)-logπref(rejected))))`
+using summed completion log probabilities and a frozen copy of the initial model.
+This is full-parameter DPO, not PPO RLHF. Reward modeling uses an HF sequence
+classification model with one scalar head and
+`-logsigmoid(reward(chosen)-reward(rejected))`. No policy is optimized against
+that reward model here. Dropout stays disabled for deterministic likelihoods;
+gradients remain enabled. Reports record data hash, package versions, available
+resolved model/tokenizer commits (null for local random fixtures), device/dtype,
+label counts, training gradients, validation before/after and final test loss.
+Saved full models/reference support reload evaluation.
+
+`pair_accuracy` ranks raw policy summed log probabilities for DPO (potentially
+length-biased), and reward scores for reward modeling. DPO also reports
+`dpo_improvement_rate`, which ranks reference-adjusted implicit rewards: positive
+improvement can occur while raw policy still prefers the rejected response.
+Margins and ties describe the DPO objective; `policy_ranking_ties` separately
+describes raw rankings. No generated-answer quality improvement is implied.
+
+AI collection actually calls Hugging Face generation without a paid API. It
+hides original preference labels and randomizes A/B order, recording that
+permutation. Only an exact JSON A/B winner is accepted. Invalid judgments are
+rejected and retained in the `.audit.json` report, never converted to scripted
+fallback labels. Output provenance is AI and preserves original candidate
+provenance. The small judge is uncalibrated, can be wrong and can exhibit position
+bias. AI-held-out agreement is not independent human evaluation.
+
+**Executed locally:** all 21 unit/integration tests passed on CPU, including
+actual random GPT-2 causal-LM DPO and scalar reward training (35 steps each),
+nonzero gradients, frozen-reference math, manual token-likelihood/mask checks,
+loss decrease, held-out synthetic ranking and save/reload score agreement.
+See `reports/preference-integration.json`. The one-pair held-out score is a
+mechanical integration check of a simple scripted good-over-bad rule; reward
+accuracy was already 1.0 before optimization, so no accuracy gain is claimed.
+**Pending:** pretrained public-human training, actual AI judge collection, AI
+preference training and all Colab GPU runs. No human or AI run is marked completed.
+
 ## References
 
 - [TRL GRPO method and trainer documentation](https://huggingface.co/docs/trl/grpo_trainer)
