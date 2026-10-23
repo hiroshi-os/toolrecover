@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "toolrecover"
+version = "0.1.0"
+description = "Reproducible experiments in reward-based tool-error recovery"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = []
+
+[project.optional-dependencies]
+train = ["torch>=2.3,<3"]
+hf = ["torch>=2.3,<3", "transformers>=4.45,<6", "peft>=0.13,<1"]
+
+[project.scripts]
+toolrecover = "toolrecover.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
