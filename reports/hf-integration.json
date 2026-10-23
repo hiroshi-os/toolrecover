@@ -1,0 +1,11 @@
+{
+  "kind": "random_local_causal_lm_lora_backend_integration",
+  "sft_steps": 1,
+  "rl_steps": 1,
+  "group_size": 2,
+  "parameter_change_l2": 0.006890957709401846,
+  "rl_parameter_change_l2": 0.0008906836155802011,
+  "reload_evaluation_count": 4,
+  "random_model_success_rate": 0.0,
+  "pretrained_quality_measured": false
+}

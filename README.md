@@ -19,7 +19,7 @@ python -m venv .venv
 # Activate .venv using your shell's usual command.
 python -m pip install -e '.[train]'
 python -m unittest discover -s tests -v
-python -m toolrecover.cli train --out artifacts/seed0 --seed 0 --sft-steps 8 --rl-steps 80
+python -m toolrecover.cli train --out artifacts/seed0 --seed 0 --sft-steps 24 --rl-steps 80
 python -m toolrecover.cli eval --checkpoint artifacts/seed0/sft.pt --out artifacts/sft-eval.json
 python -m toolrecover.cli eval --checkpoint artifacts/seed0/grpo.pt --out artifacts/grpo-eval.json
 python -m toolrecover.cli eval --baseline scripted
@@ -117,10 +117,14 @@ to multi-step constrained actions; it does not reproduce every token-level loss,
 masking convention or normalization option in TRL. It is RL with verifiable
 rewards, **not RLHF**, RLAIF or human-preference learning.
 
-The experiment intentionally uses only eight SFT updates to leave room to study
-reward training. It is not a claim that RL outperforms a converged SFT baseline.
-Do not tune on the published test scores; use validation for new experiments and
-reserve a fresh test split for a final claim.
+The initial eight-update SFT warm-start collapsed to early submission during RL;
+that negative result is preserved in `reports/undertrained-cpu-results.json`.
+A validation-only comparison of 24 and 48 SFT steps selected the smaller adequate
+warm-start. The current three-seed protocol uses 24 SFT steps and 80 grouped RL
+updates. Both SFT and reward-trained policies solved the narrow instance test,
+while both failed the unseen composed challenge. This is **not an RL improvement
+claim**. See [executed results](RESULTS.md) for the full interpretation. Use
+validation for new choices; the published test has now been inspected.
 
 ## Tests and extensions
 

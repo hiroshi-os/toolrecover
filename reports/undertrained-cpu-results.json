@@ -1,0 +1,239 @@
+[
+  {
+    "seed": 0,
+    "config": {
+      "sft_steps": 8,
+      "rl_steps": 80,
+      "group_size": 8
+    },
+    "sft_final_loss": 1.5293477773666382,
+    "rl_parameter_change_l2": 1.9828068017959595,
+    "nonzero_advantage_groups": 61,
+    "results": {
+      "sft": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed0\\sft.pt",
+        "split": "test",
+        "seed": 0,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.31500000000000006,
+        "mean_steps": 7.75,
+        "invalid_calls": 475
+      },
+      "sft_challenge": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed0\\sft.pt",
+        "split": "challenge",
+        "seed": 0,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.4675000000000001,
+        "mean_steps": 8.0,
+        "invalid_calls": 775
+      },
+      "grpo": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed0\\grpo.pt",
+        "split": "test",
+        "seed": 0,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.01,
+        "mean_steps": 1.0,
+        "invalid_calls": 0
+      },
+      "grpo_challenge": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed0\\grpo.pt",
+        "split": "challenge",
+        "seed": 0,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.01,
+        "mean_steps": 1.0,
+        "invalid_calls": 0
+      },
+      "scripted": {
+        "baseline": "scripted",
+        "checkpoint": null,
+        "split": "test",
+        "seed": 0,
+        "count": 100,
+        "success_rate": 1.0,
+        "mean_reward": 0.94,
+        "mean_steps": 6.0,
+        "invalid_calls": 0
+      },
+      "random": {
+        "baseline": "random",
+        "checkpoint": null,
+        "split": "test",
+        "seed": 0,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.37079999999999996,
+        "mean_steps": 5.39,
+        "invalid_calls": 153
+      }
+    }
+  },
+  {
+    "seed": 1,
+    "config": {
+      "sft_steps": 8,
+      "rl_steps": 80,
+      "group_size": 8
+    },
+    "sft_final_loss": 1.5358996391296387,
+    "rl_parameter_change_l2": 1.9467856884002686,
+    "nonzero_advantage_groups": 56,
+    "results": {
+      "sft": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed1\\sft.pt",
+        "split": "test",
+        "seed": 1,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.2725,
+        "mean_steps": 7.25,
+        "invalid_calls": 400
+      },
+      "sft_challenge": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed1\\sft.pt",
+        "split": "challenge",
+        "seed": 1,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.38,
+        "mean_steps": 8.0,
+        "invalid_calls": 600
+      },
+      "grpo": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed1\\grpo.pt",
+        "split": "test",
+        "seed": 1,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.01,
+        "mean_steps": 1.0,
+        "invalid_calls": 0
+      },
+      "grpo_challenge": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed1\\grpo.pt",
+        "split": "challenge",
+        "seed": 1,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.01,
+        "mean_steps": 1.0,
+        "invalid_calls": 0
+      },
+      "scripted": {
+        "baseline": "scripted",
+        "checkpoint": null,
+        "split": "test",
+        "seed": 1,
+        "count": 100,
+        "success_rate": 1.0,
+        "mean_reward": 0.94,
+        "mean_steps": 6.0,
+        "invalid_calls": 0
+      },
+      "random": {
+        "baseline": "random",
+        "checkpoint": null,
+        "split": "test",
+        "seed": 1,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.3892,
+        "mean_steps": 5.74,
+        "invalid_calls": 208
+      }
+    }
+  },
+  {
+    "seed": 2,
+    "config": {
+      "sft_steps": 8,
+      "rl_steps": 80,
+      "group_size": 8
+    },
+    "sft_final_loss": 1.5211691856384277,
+    "rl_parameter_change_l2": 1.9594647884368896,
+    "nonzero_advantage_groups": 60,
+    "results": {
+      "sft": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed2\\sft.pt",
+        "split": "test",
+        "seed": 2,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.38000000000000006,
+        "mean_steps": 8.0,
+        "invalid_calls": 600
+      },
+      "sft_challenge": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed2\\sft.pt",
+        "split": "challenge",
+        "seed": 2,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.4800000000000001,
+        "mean_steps": 8.0,
+        "invalid_calls": 800
+      },
+      "grpo": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed2\\grpo.pt",
+        "split": "test",
+        "seed": 2,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.01,
+        "mean_steps": 1.0,
+        "invalid_calls": 0
+      },
+      "grpo_challenge": {
+        "baseline": "model",
+        "checkpoint": "artifacts\\seed2\\grpo.pt",
+        "split": "challenge",
+        "seed": 2,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.01,
+        "mean_steps": 1.0,
+        "invalid_calls": 0
+      },
+      "scripted": {
+        "baseline": "scripted",
+        "checkpoint": null,
+        "split": "test",
+        "seed": 2,
+        "count": 100,
+        "success_rate": 1.0,
+        "mean_reward": 0.94,
+        "mean_steps": 6.0,
+        "invalid_calls": 0
+      },
+      "random": {
+        "baseline": "random",
+        "checkpoint": null,
+        "split": "test",
+        "seed": 2,
+        "count": 100,
+        "success_rate": 0.0,
+        "mean_reward": -0.3953,
+        "mean_steps": 5.8,
+        "invalid_calls": 193
+      }
+    }
+  }
+]
